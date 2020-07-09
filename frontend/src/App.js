@@ -3,16 +3,21 @@ import { Route } from 'react-router-dom'
 import Home from './Home';
 import SignUp from './SignUp';
 import ForgotPassword from './ForgotPassword';
+import {ProtectedRoute, AuthRoute } from './util/authRoutes';
+import Login from './Login';
 
 function App() {
   return (
     <div className="App">
-      <Route exact path="/">
+      <ProtectedRoute exact path="/">
           <Home />
-      </Route>
-      <Route path="/signup">
+      </ProtectedRoute>
+      <AuthRoute path="/signup">
           <SignUp />
-      </Route>
+      </AuthRoute>
+      <AuthRoute path="/login">
+          <Login />
+      </AuthRoute>
       <Route path="/forgot-password">
         <ForgotPassword />
       </Route>
