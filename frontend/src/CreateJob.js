@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { db } from "./firebase";
+
 import { useInput } from "./util/customHooks";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "react-quill/dist/quill.bubble.css";
+import { AuthContext } from "./providers/AuthProvider";
 
 const modules = {
   toolbar: [
@@ -29,21 +32,48 @@ const formats = [
   "background",
 ];
 
-export default () => {
+export default ({addJob}) => {
   const company = useInput("");
   const jobTitle = useInput("");
   const postUrl = useInput("");
   const location = useInput("");
   const salary = useInput("");
+  const dueDate = useInput("");
   const [description, setDescription] = useState("");
+  const [status, setStatus] = useState("applied");
+  const { currentUser } = useContext(AuthContext);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addJob({
+        company: company.value, 
+        job_title: jobTitle.value,
+        post_url: postUrl.value,
+        location: location.value,
+        salary: salary.value,
+        due_date: dueDate.value, 
+        description,
+        status,
+        user_id: currentUser.uid
+    });
+  };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <input placeholder="Company" {...company} />
       <input placeholder="Job Title" {...jobTitle} />
       <input placeholder="Post URL" {...postUrl} />
       <input placeholder="Location" {...location} />
       <input placeholder="Salary" {...salary} />
+      <input type="date" placeholder="due date" {...dueDate} />
+      <select value={status} onChange={(e) => setStatus(e.target.value)}>
+        <option value={"wishlist"}>WishList</option>
+        <option value={"applied"}>Applied</option>
+        <option value={"phoneScreen"}>Phone Screen</option>
+        <option value={"codingChallenge"}>Coding Challenge</option>
+        <option value={"techScreen"}>Tech Screen</option>
+        <option value={"onsite"}>Onsite</option>
+        <option value={"offer"}>Offer</option>
+      </select>
       <label>
         Job Description
         <ReactQuill
@@ -54,6 +84,8 @@ export default () => {
           formats={formats}
         />
       </label>
+
+      <button>ADD JOB</button>
     </form>
   );
 };

@@ -10,5 +10,5 @@ export const useInput = (initialState) => {
 
     const clearInput = () => setState("")
 
-    return {state, onChange, clearInput}
+    return {value: state, onChange, clearInput}
 }

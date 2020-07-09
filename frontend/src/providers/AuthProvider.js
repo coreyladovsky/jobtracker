@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import firebase from "../firebase";
+import firebase, {db} from "../firebase";
 
 export const AuthContext = createContext();
 
@@ -7,6 +7,7 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
 
+  console.log(db)
   const updateUser = (user) => {
     setLoading(true);
     if (user) {
@@ -28,7 +29,7 @@ const AuthProvider = ({ children }) => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <AuthContext.Provider value={{ currentUser }}>
+    <AuthContext.Provider value={{ currentUser}}>
       {children}
     </AuthContext.Provider>
   );

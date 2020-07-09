@@ -1,5 +1,7 @@
+import Rebase from 're-base'
 import app from 'firebase/app';
 import "firebase/auth"
+import "firebase/firestore"
 const {
   REACT_APP_APIKEY,
   REACT_APP_AUTHDOMAIN,
@@ -23,6 +25,6 @@ const config = {
 
 
 app.initializeApp(config)
-
-
+export const db = app.firestore()
+db.settings({ timestampsInSnapshots: true })
 export default app; 
