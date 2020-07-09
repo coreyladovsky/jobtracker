@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { db } from "./firebase";
+import React, { useState, useEffect, useContext } from "react";
 import JobsIndex from "./JobsIndex";
 import { Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import CreateJob from "./CreateJob";
+import axios from "axios";
+import { apiURL } from "./util/apiURL";
+import { AuthContext } from './providers/AuthProvider'
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -22,25 +24,45 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default () => {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const [jobs, setJobs] = useState([]);
   const classes = useStyles();
+  const API = apiURL();
+  const { currentUser, token } = useContext(AuthContext);
 
-  const addJob = (job) => {
-        db.collection("jobs").add(job);
-        setJobs((prevJobs) => [job, ...prevJobs])
-  }
-
-  useEffect(() => {
-    const unsub = db.collection("jobs").onSnapshot((snapshot) => {
-      const allJobs = snapshot.docs.map((doc) => {
-          debugger
-        // id: doc.id,
-        // ...doc.data(),
+  const addJob = async (job) => {
+      try {
+           let res = await axios({
+        method: "post",
+        url: `${API}/api/jobs`,
+        data: job,
+        headers: {
+          AuthToken: token,
+        }
       });
-      setJobs(allJobs);
-    });
-    return () => unsub
+        setJobs((prevJobs) => [job, ...prevJobs]);
+        setShow(false)
+      } catch (err) {
+        console.log(err)
+      }
+  };
+  
+  const fetchJobs = async () => {
+      try {
+      let res = await axios({
+            method: "get",
+            url: `${API}/api/jobs`,
+            headers: {
+                AuthToken: token,
+            }
+            });
+      setJobs(res.data.jobs);       
+      } catch (error) {
+          console.log(error)
+      }
+  }
+  useEffect(() => {
+      fetchJobs()
   }, []);
 
   const handleClose = () => setShow(false);
@@ -67,7 +89,7 @@ export default () => {
         <Fade in={show}>
           <div className={classes.paper}>
             <h1>Add Job</h1>
-            <CreateJob addJob={addJob}/>
+            <CreateJob addJob={addJob} />
           </div>
         </Fade>
       </Modal>

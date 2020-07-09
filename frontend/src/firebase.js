@@ -25,6 +25,5 @@ const config = {
 
 
 app.initializeApp(config)
-export const db = app.firestore()
-db.settings({ timestampsInSnapshots: true })
+
 export default app; 

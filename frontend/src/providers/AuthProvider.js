@@ -20,20 +20,6 @@ const AuthProvider = ({children}) => {
             getFirebaseIdToken().then((token) => {
                 setToken(token);
                 setLoading(false)
-                axios({
-                    method: "get",
-                    url: `${API}/api/users/current_user`,
-                    headers: {
-                        'AuthToken': token
-                    }
-                }).then(res => {
-                    setCurrentUser((prevCurrentUser) => ({
-                      ...res.data.user,
-                      ...prevCurrentUser
-                    }));
-                }).catch(err => {
-                    console.log(err)
-                })
             })
          } else {
            setCurrentUser(null);
