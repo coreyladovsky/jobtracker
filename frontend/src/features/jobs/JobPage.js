@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import CreateJob from "./CreateJob";
+import FilterOptions from '../filter/filterOptions';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,6 +58,7 @@ export default () => {
           </div>
         </Fade>
       </Modal>
+      <FilterOptions />
       <JobsIndex setSelectedJob={setSelectedJob} handleOpen={handleOpen} />
     </section>
   );
