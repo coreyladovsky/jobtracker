@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom'
 import Home from './Home';
 import SignUp from './features/auth/SignUp';
-import ForgotPassword from './ForgotPassword';
+import ForgotPassword from './features/auth/ForgotPassword';
 import {ProtectedRoute, AuthRoute } from './util/authRoutes';
 import Login from './features/auth/Login';
 

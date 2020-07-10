@@ -24,14 +24,17 @@ const useStyles = makeStyles((theme) => ({
 export default () => {
   const [show, setShow] = useState(false);
   const classes = useStyles();
-  
+  const [selectedJob, setSelectedJob] = useState(null);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => { 
+    setShow(false)
+    setSelectedJob(null)
+  };
+  const handleOpen = () => setShow(true);
 
   return (
     <section>
-      <button type="button" onClick={handleShow}>
+      <button type="button" onClick={handleOpen}>
         +
       </button>
 
@@ -50,11 +53,11 @@ export default () => {
         <Fade in={show}>
           <div className={classes.paper}>
             <h1>Add Job</h1>
-            <CreateJob handleClose={handleClose} />
+            <CreateJob handleClose={handleClose} selectedJob={selectedJob} />
           </div>
         </Fade>
       </Modal>
-      <JobsIndex/>
+      <JobsIndex setSelectedJob={setSelectedJob} handleOpen={handleOpen} />
     </section>
   );
 };

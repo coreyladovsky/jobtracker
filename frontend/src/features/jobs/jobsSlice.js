@@ -70,4 +70,4 @@ export const jobsSlice = createSlice({
 export const { receiveJobs, receiveJob } = jobsSlice.actions;
 export default jobsSlice.reducer;
 
-export const selectJobs = (state) => Object.values(state.jobs);
+export const selectJobs = (state) => Object.values(state.jobs).reverse();

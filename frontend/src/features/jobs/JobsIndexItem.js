@@ -3,7 +3,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { useDispatch } from "react-redux";
 import { updateJob } from "./jobsSlice";
 
-export default ({ job }) => {
+export default ({ job, handleOpen, setSelectedJob }) => {
   const { token } = useContext(AuthContext);
   const dispatch = useDispatch();
   const updateJobStatus = async (e) => {
@@ -11,13 +11,19 @@ export default ({ job }) => {
       updateJob(Object.assign({}, job, { status: e.target.value }), token)
     );
   };
+
+  const handleClick = () => {
+    setSelectedJob(job.id);
+    handleOpen();
+  }
   return (
     <li>
-      <div>
+      <div onClick={handleClick}>
         <h3>{job.company}</h3>
         <h4>{job.job_title}</h4>
       </div>
       <select value={job.status} onChange={updateJobStatus}>
+        <option value={"rejected"}>Rejected</option>
         <option value={"wishlist"}>WishList</option>
         <option value={"applied"}>Applied</option>
         <option value={"phoneScreen"}>Phone Screen</option>
