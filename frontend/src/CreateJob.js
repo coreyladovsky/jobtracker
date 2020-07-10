@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import { db } from "./firebase";
 
 import { useInput } from "./util/customHooks";
 import ReactQuill from "react-quill";

@@ -1,7 +1,6 @@
-import Rebase from 're-base'
-import app from 'firebase/app';
-import "firebase/auth"
-import "firebase/firestore"
+import app from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
 const {
   REACT_APP_APIKEY,
   REACT_APP_AUTHDOMAIN,
@@ -22,8 +21,6 @@ const config = {
   appId: REACT_APP_APPID,
 };
 
+app.initializeApp(config);
 
-
-app.initializeApp(config)
-
-export default app; 
+export default app;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import JobsIndex from "./JobsIndex";
 import { Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -47,23 +47,6 @@ export default () => {
       }
   };
   
-  const fetchJobs = async () => {
-      try {
-      let res = await axios({
-            method: "get",
-            url: `${API}/api/jobs`,
-            headers: {
-                AuthToken: token,
-            }
-            });
-      setJobs(res.data.jobs);       
-      } catch (error) {
-          console.log(error)
-      }
-  }
-  useEffect(() => {
-      fetchJobs()
-  }, []);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -93,7 +76,7 @@ export default () => {
           </div>
         </Fade>
       </Modal>
-      <JobsIndex jobs={jobs} />
+      <JobsIndex/>
     </section>
   );
 };

@@ -1,7 +1,8 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { getFirebaseIdToken } from '../util/firebaseFunctions';
 import firebase from '../firebase';
-import { apiURL } from '../util/apiURL'
+import { useDispatch } from 'react-redux'
+import { updateCurrentUser } from '../features/auth/authSlice';
 
 export const AuthContext = createContext();
 
@@ -9,7 +10,7 @@ const AuthProvider = ({children}) => {
     const [loading, setLoading] = useState(true);
     const [currentUser, setCurrentUser] = useState(null);
     const [token, setToken] = useState(null);
-    const API = apiURL();
+    const dispatch = useDispatch()
 
     const updateUser = (user) => {
         setLoading(true)
@@ -20,8 +21,10 @@ const AuthProvider = ({children}) => {
             getFirebaseIdToken().then((token) => {
                 setToken(token);
                 setLoading(false)
+                dispatch(updateCurrentUser({email, uid, lastLogin, token}))
             })
-         } else {
+        } else {
+            dispatch(updateCurrentUser(null))
            setCurrentUser(null);
            setLoading(false)
          }
