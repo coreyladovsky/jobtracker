@@ -1,8 +1,8 @@
 import React, { useEffect, useContext } from 'react'
 import JobsIndexItem from './JobsIndexItem'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectJobs, fetchAllJobs } from './features/jobs/jobsSlice'
-import { AuthContext } from './providers/AuthProvider'
+import { selectJobs, fetchAllJobs } from './jobsSlice'
+import { AuthContext } from '../../providers/AuthProvider'
 
 export default () => {
     const { token } = useContext(AuthContext);

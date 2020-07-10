@@ -1,13 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import JobsIndex from "./JobsIndex";
 import { Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import CreateJob from "./CreateJob";
-import axios from "axios";
-import { apiURL } from "./util/apiURL";
-import { AuthContext } from './providers/AuthProvider'
+
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -25,27 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default () => {
   const [show, setShow] = useState(false);
-  const [jobs, setJobs] = useState([]);
   const classes = useStyles();
-  const API = apiURL();
-  const { currentUser, token } = useContext(AuthContext);
-
-  const addJob = async (job) => {
-      try {
-           let res = await axios({
-        method: "post",
-        url: `${API}/api/jobs`,
-        data: job,
-        headers: {
-          AuthToken: token,
-        }
-      });
-        setJobs((prevJobs) => [job, ...prevJobs]);
-        setShow(false)
-      } catch (err) {
-        console.log(err)
-      }
-  };
   
 
   const handleClose = () => setShow(false);
@@ -72,7 +50,7 @@ export default () => {
         <Fade in={show}>
           <div className={classes.paper}>
             <h1>Add Job</h1>
-            <CreateJob addJob={addJob} />
+            <CreateJob handleClose={handleClose} />
           </div>
         </Fade>
       </Modal>

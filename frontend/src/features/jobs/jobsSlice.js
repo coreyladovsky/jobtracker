@@ -11,6 +11,23 @@ const normalize = (arr) => {
   }, {});
 };
 
+export const createJob = (job, token) => async (dispatch) => {
+    try {
+       const res = await axios({
+         method: "post",
+         url: `${API}/api/jobs`,
+         headers: {
+           AuthToken: token,
+         },
+         data: job
+       });
+
+       dispatch(receiveJob(res.data.job));    
+    } catch (err) {
+        
+    }
+}
+
 export const fetchAllJobs = (token) => async (dispatch) => {
   try {
     const res = await axios({

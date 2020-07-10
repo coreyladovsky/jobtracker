@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { signUp } from "./util/firebaseFunctions";
+import { signUp } from "../../util/firebaseFunctions";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");

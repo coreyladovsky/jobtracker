@@ -1,10 +1,12 @@
 import React, { useState, useContext } from "react";
 
-import { useInput } from "./util/customHooks";
+import { useInput } from "../../util/customHooks";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "react-quill/dist/quill.bubble.css";
-import { AuthContext } from "./providers/AuthProvider";
+import { AuthContext } from "../../providers/AuthProvider";
+import { useDispatch } from "react-redux";
+import { createJob } from "./jobsSlice";
 
 const modules = {
   toolbar: [
@@ -31,7 +33,7 @@ const formats = [
   "background",
 ];
 
-export default ({addJob}) => {
+export default ({ handleClose }) => {
   const company = useInput("");
   const jobTitle = useInput("");
   const postUrl = useInput("");
@@ -40,25 +42,30 @@ export default ({addJob}) => {
   const dueDate = useInput("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("applied");
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, token } = useContext(AuthContext);
+
+  const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    addJob({
-        company: company.value, 
+    dispatch(
+      createJob({
+        company: company.value,
         job_title: jobTitle.value,
         post_url: postUrl.value,
         location: location.value,
         salary: salary.value,
-        due_date: dueDate.value, 
+        due_date: dueDate.value,
         description,
         status,
-        user_id: currentUser.uid
-    });
+        user_id: currentUser.uid,
+      }, token)
+    );
+    handleClose()
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input placeholder="Company" {...company} />
+      <input placeholder="Company" {...company} required />
       <input placeholder="Job Title" {...jobTitle} />
       <input placeholder="Post URL" {...postUrl} />
       <input placeholder="Location" {...location} />

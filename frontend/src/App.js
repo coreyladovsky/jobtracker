@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route } from 'react-router-dom'
 import Home from './Home';
-import SignUp from './SignUp';
+import SignUp from './features/auth/SignUp';
 import ForgotPassword from './ForgotPassword';
 import {ProtectedRoute, AuthRoute } from './util/authRoutes';
-import Login from './Login';
+import Login from './features/auth/Login';
 
 function App() {
   return (

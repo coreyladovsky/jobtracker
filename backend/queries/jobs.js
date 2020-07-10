@@ -33,9 +33,10 @@ const createJob = async (req, res, next) => {
 };
 
 const updateJob = async (req, res, next) => {
+  req.body.id = req.params.id
   try {
     let job = await db.one(
-      "UPDATE jobs SET company=${company}, job_title=${job_title}, post_url=${post_url}, location=${location}, salary=${salary}, due_date=${due_date}, description=${description}, status=${status} WHERE user_id = ${user_id} RETURNING *",
+      "UPDATE jobs SET company=${company}, job_title=${job_title}, post_url=${post_url}, location=${location}, salary=${salary}, due_date=${due_date}, description=${description}, status=${status} WHERE id = ${id} RETURNING *",
       req.body
     );
     res.json({

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import { AuthContext } from "./providers/AuthProvider";
+import { AuthContext } from "../../providers/AuthProvider";
 import { useDispatch } from "react-redux";
-import { updateJob } from "./features/jobs/jobsSlice";
+import { updateJob } from "./jobsSlice";
 
 export default ({ job }) => {
   const { token } = useContext(AuthContext);
