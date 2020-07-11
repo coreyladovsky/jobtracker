@@ -8,6 +8,7 @@ import CreateJob from "./CreateJob";
 import FilterOptions from '../filter/filterOptions';
 import { useSelector, useDispatch } from 'react-redux'
 import { setShow, setSelectedJob } from "../modal/modalSlice";
+import Pagination from "../pagination/Pagination";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -58,6 +59,7 @@ export default () => {
       </Modal>
       <FilterOptions />
       <JobsIndex />
+      <Pagination />
     </section>
   );
 };

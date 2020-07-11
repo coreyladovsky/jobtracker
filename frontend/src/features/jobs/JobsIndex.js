@@ -1,10 +1,8 @@
 import React, { useEffect, useContext } from 'react'
 import JobsIndexItem from './JobsIndexItem'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectJobs, fetchAllJobs } from './jobsSlice'
+import { selectFilteredJobs, fetchAllJobs } from "./jobsSlice";
 import { AuthContext } from '../../providers/AuthProvider'
-import { selectFilter } from '../filter/filterSlice'
-import { selectSearch } from '../search/searchSlice'
 import "./JobsIndex.css";
 
 export default () => {
@@ -13,12 +11,11 @@ export default () => {
     useEffect(() => {
         dispatch(fetchAllJobs(token))
     }, [])
-    const jobs = useSelector(selectJobs)
-    const filters = useSelector(selectFilter)
-    const searchTerm = useSelector(selectSearch)
+    const jobs = useSelector(selectFilteredJobs)
+
     return(
         <ul className="jobsList">
-            {jobs.filter(job => filters[job.status] && job.company.toLowerCase().includes(searchTerm.toLowerCase())).map(job => {
+            {jobs.map(job => {
                 return <JobsIndexItem job={job} key={job.id} />
             })}
         </ul>

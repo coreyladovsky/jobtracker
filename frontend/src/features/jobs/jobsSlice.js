@@ -72,3 +72,9 @@ export default jobsSlice.reducer;
 
 export const selectJobs = (state) => Object.values(state.jobs).reverse();
 export const selectJobCount = (state) => Object.values(state.jobs).filter(job => job.status !== "wishlist").length;
+export const selectFilteredJobs = (state) => {
+  let allJobs = Object.values(state.jobs).reverse()
+  let filters = state.filter; 
+  let searchTerm = state.search;
+  return allJobs.filter(job => filters[job.status] && job.company.toLowerCase().includes(searchTerm.toLowerCase()));
+  }
