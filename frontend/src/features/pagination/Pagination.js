@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { updateNumberOfRows } from "./paginationSlice";
+import { updateNumberOfRows, nextPage } from "./paginationSlice";
 import { selectFilteredJobs } from "../jobs/jobsSlice";
 
 export default () => {
   const [rows, setRows] = useState(15);
+  const [page, setPage] = useState(0);
   const dispatch = useDispatch();
   const filteredJobsCount = useSelector(selectFilteredJobs).length;
 
@@ -16,11 +17,21 @@ export default () => {
   const numberOfPages = Math.ceil(filteredJobsCount / rows);
 
   const displayPageLinks = () => {
-      let links = new Array(numberOfPages).fill(null);
-      return links.map((el, i) => {
-          return <div>{i +1}</div>
-      })
-  }
+    let links = new Array(numberOfPages).fill(null);
+    return links.map((_, i) => {
+      return (
+        <label>
+          <input value={i} type="radio" name="pages" checked={page === i} />
+          {i + 1}
+        </label>
+      );
+    });
+  };
+
+  const handlePage = (e) => {
+    setPage(Number(e.target.value));
+    dispatch(nextPage(Number(e.target.value) * rows));
+  };
 
   return (
     <section>
@@ -35,9 +46,9 @@ export default () => {
         </select>
         Rows
       </div>
-      <div className="pages">
-            {displayPageLinks()}
-      </div>
+      <form className="pages" onChange={handlePage}>
+        {displayPageLinks()}
+      </form>
     </section>
   );
 };

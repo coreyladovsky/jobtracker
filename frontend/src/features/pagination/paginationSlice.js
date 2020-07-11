@@ -10,10 +10,12 @@ export const paginationSlice = createSlice({
         nextPage: (state, { payload }) => {
             const diff = state.endIdx - state.startIdx;;
             state["startIdx"] = payload;
-            state["endIdx"] = state.startIdx + diff; 
+            state["endIdx"] = payload + diff; 
         }
     }
 })
 
 export const { updateNumberOfRows, nextPage } = paginationSlice.actions;
 export default paginationSlice.reducer;
+
+export const selectPagination = (state) => state.pagination;
