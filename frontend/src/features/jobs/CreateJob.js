@@ -33,8 +33,8 @@ const formats = [
   "background",
 ];
 
-export default ({ handleClose, selectedJob }) => {
-  const job = useSelector((state) => state.jobs[selectedJob]);
+export default ({ handleClose }) => {
+  const job = useSelector((state) => state.jobs[state.modal.selectedJob]);
     const company = useInput(job && job.company || "");
     const jobTitle = useInput(job && job.job_title || "");
     const postUrl = useInput(job && job.post_url || "");

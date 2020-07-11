@@ -2,8 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const modalSlice = createSlice({
     name: "modal", 
-    initialState: false, 
+    initialState: {show: false, selectedJob: null}, 
     reducers: {
-        showModal: () => {}
+        setShow: (state, {payload}) => { state.show = payload},
+        setSelectedJob: (state, { payload}) => {state.selectedJob = payload}
     }
 })
+
+export const { setShow, setSelectedJob } = modalSlice.actions;
+export default modalSlice.reducer; 

@@ -6,7 +6,7 @@ import { AuthContext } from '../../providers/AuthProvider'
 import { selectFilter } from '../filter/filterSlice'
 import { selectSearch } from '../search/searchSlice'
 
-export default ({handleOpen, setSelectedJob }) => {
+export default () => {
     const { token } = useContext(AuthContext);
     const dispatch = useDispatch();
     useEffect(() => {
@@ -18,7 +18,7 @@ export default ({handleOpen, setSelectedJob }) => {
     return(
         <ul>
             {jobs.filter(job => filters[job.status] && job.company.toLowerCase().includes(searchTerm.toLowerCase())).map(job => {
-                return <JobsIndexItem job={job} key={job.id} handleOpen={handleOpen} setSelectedJob={setSelectedJob}/>
+                return <JobsIndexItem job={job} key={job.id} />
             })}
         </ul>
     )

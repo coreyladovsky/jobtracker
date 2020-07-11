@@ -2,8 +2,9 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useDispatch } from "react-redux";
 import { updateJob } from "./jobsSlice";
+import { setShow, setSelectedJob } from "../modal/modalSlice";
 
-export default ({ job, handleOpen, setSelectedJob }) => {
+export default ({ job }) => {
   const { token } = useContext(AuthContext);
   const dispatch = useDispatch();
   const updateJobStatus = async (e) => {
@@ -13,8 +14,8 @@ export default ({ job, handleOpen, setSelectedJob }) => {
   };
 
   const handleClick = () => {
-    setSelectedJob(job.id);
-    handleOpen();
+    dispatch(setShow(true))
+    dispatch(setSelectedJob(job.id))
   }
   return (
     <li>

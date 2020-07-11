@@ -6,6 +6,8 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import CreateJob from "./CreateJob";
 import FilterOptions from '../filter/filterOptions';
+import { useSelector, useDispatch } from 'react-redux'
+import { setShow, setSelectedJob } from "../modal/modalSlice";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,22 +25,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default () => {
-  const [show, setShow] = useState(false);
   const classes = useStyles();
-  const [selectedJob, setSelectedJob] = useState(null);
+  const dispatch = useDispatch()
 
   const handleClose = () => { 
-    setShow(false)
-    setSelectedJob(null)
+    dispatch(setShow(false))
+    dispatch(setSelectedJob(null))
   };
-  const handleOpen = () => setShow(true);
 
+  const modal = useSelector(state => state.modal)
+  const {show, selectedJob} = modal;
   return (
     <section>
-      <button type="button" onClick={handleOpen}>
-        +
-      </button>
-
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -54,12 +52,12 @@ export default () => {
         <Fade in={show}>
           <div className={classes.paper}>
             <h1>Add Job</h1>
-            <CreateJob handleClose={handleClose} selectedJob={selectedJob} />
+            <CreateJob handleClose={handleClose} />
           </div>
         </Fade>
       </Modal>
       <FilterOptions />
-      <JobsIndex setSelectedJob={setSelectedJob} handleOpen={handleOpen} />
+      <JobsIndex />
     </section>
   );
 };

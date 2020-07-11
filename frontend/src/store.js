@@ -3,6 +3,8 @@ import jobsReducer from './features/jobs/jobsSlice';
 import authReducer from './features/auth/authSlice';
 import filterReducer from './features/filter/filterSlice';
 import searchReducer from './features/search/searchSlice';
+import modalReducer from './features/modal/modalSlice';
+
 import logger from 'redux-logger'
 export default configureStore({
   reducer: {
@@ -10,6 +12,7 @@ export default configureStore({
     auth: authReducer,
     filter: filterReducer, 
     search: searchReducer, 
+    modal: modalReducer,
   },
   middleware: [logger, ...getDefaultMiddleware()],
 });
