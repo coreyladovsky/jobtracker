@@ -9,11 +9,12 @@
 
 .jobsList li {
     width: 45%;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     padding: 5px;
     align-items: center;
     border-bottom: 1px solid darkblue;
+    
 }
 
 .jobsList li h3 {
@@ -24,4 +25,13 @@
 .jobsList li select {
     height: 25px;
     width: 200px;
+}
+
+.jobIndexItemEdit:hover {
+    cursor: pointer;
+    /* background-color: white; */
+}
+
+.timeSinceJobCreation {
+    text-align: right;
 }

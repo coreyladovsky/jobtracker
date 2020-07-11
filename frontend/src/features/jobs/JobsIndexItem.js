@@ -3,6 +3,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import { useDispatch } from "react-redux";
 import { updateJob } from "./jobsSlice";
 import { setShow, setSelectedJob } from "../modal/modalSlice";
+import TimeAgo from 'react-timeago';
 
 export default ({ job }) => {
   const { token } = useContext(AuthContext);
@@ -19,7 +20,7 @@ export default ({ job }) => {
   }
   return (
     <li>
-      <div onClick={handleClick}>
+      <div onClick={handleClick} className={"jobIndexItemEdit"}>
         <h3>{job.company}</h3>
         <h4>{job.job_title}</h4>
       </div>
@@ -33,6 +34,7 @@ export default ({ job }) => {
         <option value={"onsite"}>Onsite</option>
         <option value={"offer"}>Offer</option>
       </select>
+      <TimeAgo date={job.created_at} className={"timeSinceJobCreation"} />
     </li>
   );
 };
