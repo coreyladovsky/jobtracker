@@ -1,0 +1,22 @@
+nav {
+    display: flex;
+    height: 75px; 
+    background-color: #4242EA;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.button {
+    padding: 10px;
+    color: #4242EA;
+    min-width: 40px;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.button:hover {
+    cursor: pointer;
+    background-color: #EBFF00;
+
+}

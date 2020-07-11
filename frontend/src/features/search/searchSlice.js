@@ -4,7 +4,7 @@ export const searchSlice = createSlice({
     name: "search", 
     initialState: "", 
     reducers: {
-        updateSearch: (state, { payload }) => payload.toLowerCase(), 
+        updateSearch: (state, { payload }) => payload, 
         clearInput: () => ""
     }
 })

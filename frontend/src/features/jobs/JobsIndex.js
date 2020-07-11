@@ -17,7 +17,7 @@ export default ({handleOpen, setSelectedJob }) => {
     const searchTerm = useSelector(selectSearch)
     return(
         <ul>
-            {jobs.filter(job => filters[job.status] && job.company.toLowerCase().includes(searchTerm)).map(job => {
+            {jobs.filter(job => filters[job.status] && job.company.toLowerCase().includes(searchTerm.toLowerCase())).map(job => {
                 return <JobsIndexItem job={job} key={job.id} handleOpen={handleOpen} setSelectedJob={setSelectedJob}/>
             })}
         </ul>
