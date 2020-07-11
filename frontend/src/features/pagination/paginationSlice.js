@@ -5,7 +5,8 @@ export const paginationSlice = createSlice({
     initialState: { startIdx: 0, endIdx: 15}, 
     reducers: {
         updateNumberOfRows: (state, { payload }) => {
-            state["endIdx"] = state.startIdx + Number(payload);
+            state["endIdx"] = Number(payload);
+            state.startIdx = 0;
         },
         nextPage: (state, { payload }) => {
             const diff = state.endIdx - state.startIdx;;
