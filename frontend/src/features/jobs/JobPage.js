@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    width: "75%"
   },
 }));
 
@@ -51,7 +52,6 @@ export default () => {
       >
         <Fade in={show}>
           <div className={classes.paper}>
-            <h1>Add Job</h1>
             <CreateJob handleClose={handleClose} />
           </div>
         </Fade>

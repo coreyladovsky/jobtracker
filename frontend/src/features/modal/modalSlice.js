@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const modalSlice = createSlice({
     name: "modal", 
-    initialState: {show: false, selectedJob: null}, 
+    initialState: {show: true, selectedJob: null}, 
     reducers: {
         setShow: (state, {payload}) => { state.show = payload},
         setSelectedJob: (state, { payload}) => {state.selectedJob = payload}
