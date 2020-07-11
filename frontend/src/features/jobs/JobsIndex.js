@@ -5,6 +5,7 @@ import { selectJobs, fetchAllJobs } from './jobsSlice'
 import { AuthContext } from '../../providers/AuthProvider'
 import { selectFilter } from '../filter/filterSlice'
 import { selectSearch } from '../search/searchSlice'
+import "./JobsIndex.css";
 
 export default () => {
     const { token } = useContext(AuthContext);
@@ -16,7 +17,7 @@ export default () => {
     const filters = useSelector(selectFilter)
     const searchTerm = useSelector(selectSearch)
     return(
-        <ul>
+        <ul className="jobsList">
             {jobs.filter(job => filters[job.status] && job.company.toLowerCase().includes(searchTerm.toLowerCase())).map(job => {
                 return <JobsIndexItem job={job} key={job.id} />
             })}
