@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateNumberOfRows, nextPage } from "./paginationSlice";
 import { selectFilteredJobs } from "../jobs/jobsSlice";
+import "./Pagination.css";
 
 export default () => {
   const [rows, setRows] = useState(15);
@@ -20,7 +21,7 @@ export default () => {
     let links = new Array(numberOfPages).fill(null);
     return links.map((_, i) => {
       return (
-        <label>
+        <label className={page === i ? "onPage pageLabel" : "offPage pageLabel"}>
           <input value={i} type="radio" name="pages" checked={page === i} />
           {i + 1}
         </label>
@@ -34,7 +35,7 @@ export default () => {
   };
 
   return (
-    <section>
+    <section className="paginationContainer">
       <div className="rowCount">
         Show
         <select value={rows} onChange={handleChange}>
@@ -44,9 +45,9 @@ export default () => {
           <option value={50}>50</option>
           <option value={100}>100</option>
         </select>
-        Rows
       </div>
       <form className="pages" onChange={handlePage}>
+        <i className="pageHeader">Pages: </i>
         {displayPageLinks()}
       </form>
     </section>

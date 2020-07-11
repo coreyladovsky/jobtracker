@@ -9,7 +9,7 @@ import FilterOptions from '../filter/filterOptions';
 import { useSelector, useDispatch } from 'react-redux'
 import { setShow, setSelectedJob } from "../modal/modalSlice";
 import Pagination from "../pagination/Pagination";
-
+import "./JobPage.css";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -38,7 +38,7 @@ export default () => {
   const modal = useSelector(state => state.modal)
   const {show, selectedJob} = modal;
   return (
-    <section>
+    <section className="jobsPageContainer">
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
