@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { selectFilter, updateFilter } from './filterSlice';
+import './filterOptions.css';
 
 export default () => {
     const filter = useSelector(selectFilter);
@@ -9,15 +10,15 @@ export default () => {
         dispatch(updateFilter(e.target.value))
     }
     return(
-        <form >
-            <label><input type="checkbox" checked={filter["rejected"]} value={"rejected"} onChange={handleChange}/>Rejected</label>
-            <label><input type="checkbox" checked={filter["wishlist"]} value={"wishlist"} onChange={handleChange}/>WishList</label>
-            <label><input type="checkbox" checked={filter["applied"]} value={"applied"} onChange={handleChange}/>Applied</label>
-            <label><input type="checkbox" checked={filter["phoneScreen"]} value={"phoneScreen"} onChange={handleChange}/>Phone Screen</label>
-            <label><input type="checkbox" checked={filter["codingChallenge"]} value={"codingChallenge"} onChange={handleChange}/>Coding Challenge</label>
-            <label><input type="checkbox" checked={filter["techScreen"]} value={"techScreen"} onChange={handleChange}/>Tech Screen</label>
-            <label><input type="checkbox" checked={filter["onsite"]} value={"onsite"} onChange={handleChange}/>Onsite</label>
-            <label><input type="checkbox" checked={filter["offer"]} value={"offer"} onChange={handleChange}/>Offer</label>
+        <form className="filterOptions" >
+            <label className={filter["rejected"] ? "selected" : "hidden"}><input type="checkbox"  checked={filter["rejected"]} value={"rejected"} onChange={handleChange}/>Rejected</label>
+            <label className={filter["wishlist"] ? "selected" : "hidden"}><input type="checkbox"  checked={filter["wishlist"]} value={"wishlist"} onChange={handleChange}/>WishList</label>
+            <label className={filter["applied"] ? "selected" : "hidden"}><input type="checkbox"  checked={filter["applied"]} value={"applied"} onChange={handleChange}/>Applied</label>
+            <label className={filter["phoneScreen"] ? "selected" : "hidden"}><input type="checkbox"  checked={filter["phoneScreen"]} value={"phoneScreen"} onChange={handleChange}/>Phone Screen</label>
+            <label className={filter["codingChallenge"] ? "selected" : "hidden"}><input type="checkbox"  checked={filter["codingChallenge"]} value={"codingChallenge"} onChange={handleChange}/>Coding Challenge</label>
+            <label className={filter["techScreen"] ? "selected" : "hidden"}><input type="checkbox"  checked={filter["techScreen"]} value={"techScreen"} onChange={handleChange}/>Tech Screen</label>
+            <label className={filter["onsite"] ? "selected" : "hidden"}><input type="checkbox"  checked={filter["onsite"]} value={"onsite"} onChange={handleChange}/>Onsite</label>
+            <label className={filter["offer"] ? "selected" : "hidden"}><input type="checkbox"  checked={filter["offer"]} value={"offer"} onChange={handleChange}/>Offer</label>
         </form>
     )
 }
