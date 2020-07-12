@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import JobsIndex from "./JobsIndex";
 import { Modal } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -36,7 +36,7 @@ export default () => {
   };
 
   const modal = useSelector(state => state.modal)
-  const {show, selectedJob} = modal;
+  const {show} = modal;
   return (
     <section className="jobsPageContainer">
       <Modal

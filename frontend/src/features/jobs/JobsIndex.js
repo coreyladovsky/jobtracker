@@ -11,7 +11,7 @@ export default () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchAllJobs(token))
-    }, [])
+    }, [token, dispatch])
     const jobs = useSelector(selectFilteredJobs)
     const {startIdx, endIdx} = useSelector(selectPagination)
 

@@ -12,28 +12,28 @@ const AuthProvider = ({children}) => {
     const [token, setToken] = useState(null);
     const dispatch = useDispatch()
 
-    const updateUser = (user) => {
-        setLoading(true)
-         if (user) {
-            const { email, uid } = user;
-            const lastLogin = user.metadata.lastSignInTime;
-            setCurrentUser({ email, uid, lastLogin });
-            getFirebaseIdToken().then((token) => {
-                setToken(token);
-                setLoading(false)
-                dispatch(updateCurrentUser({email, uid, lastLogin, token}))
-            })
-        } else {
-            dispatch(updateCurrentUser(null))
-           setCurrentUser(null);
-           setLoading(false)
-         }
-    }
-
+    
     useEffect(() => {
+        const updateUser = (user) => {
+            setLoading(true)
+             if (user) {
+                const { email, uid } = user;
+                const lastLogin = user.metadata.lastSignInTime;
+                setCurrentUser({ email, uid, lastLogin });
+                getFirebaseIdToken().then((token) => {
+                    setToken(token);
+                    setLoading(false)
+                    dispatch(updateCurrentUser({email, uid, lastLogin, token}))
+                })
+            } else {
+                dispatch(updateCurrentUser(null))
+               setCurrentUser(null);
+               setLoading(false)
+             }
+        }
         const unsubscribe = firebase.auth().onAuthStateChanged(updateUser)
         return unsubscribe;
-    }, []);
+    }, [dispatch]);
 
     if (loading) return <div>Loading...</div>;
 

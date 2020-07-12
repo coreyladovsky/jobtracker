@@ -2,12 +2,14 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { selectFilter, updateFilter } from './filterSlice';
 import './filterOptions.css';
+import { resetPage } from '../pagination/paginationSlice';
 
 export default () => {
     const filter = useSelector(selectFilter);
     const dispatch = useDispatch();
     const handleChange = (e) => {
         dispatch(updateFilter(e.target.value))
+        dispatch(resetPage())
     }
     return(
         <form className="filterOptions" >
