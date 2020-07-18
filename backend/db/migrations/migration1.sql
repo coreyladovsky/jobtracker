@@ -1,3 +1,5 @@
+-- \c jobtracker;
+
 ALTER TABLE jobs
 ADD last_modified TIMESTAMP WITH TIME ZONE;
 UPDATE jobs SET last_modified = created_at;

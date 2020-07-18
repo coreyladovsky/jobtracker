@@ -35,3 +35,12 @@
 .timeSinceJobCreation {
     text-align: right;
 }
+
+#jobListLegend {
+    font-weight: bold;
+}
+
+
+.lastModified {
+    text-align: right;
+}

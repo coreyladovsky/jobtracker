@@ -15,11 +15,16 @@ export default () => {
     const jobs = useSelector(selectFilteredJobs)
     const {startIdx, endIdx} = useSelector(selectPagination)
 
-    return(
-        <ul className="jobsList">
-            {jobs.slice(startIdx, endIdx).map(job => {
-                return <JobsIndexItem job={job} key={job.id} />
-            })}
-        </ul>
-    )
+    return (
+      <ul className="jobsList">
+        <li id="jobListLegend">
+          <div>Company / Position </div>
+          <div>Status </div>
+          <div className="lastModified">Time Since Last Update</div>
+        </li>
+        {jobs.slice(startIdx, endIdx).map((job) => {
+          return <JobsIndexItem job={job} key={job.id} />;
+        })}
+      </ul>
+    );
 }
