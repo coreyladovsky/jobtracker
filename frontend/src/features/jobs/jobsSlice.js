@@ -73,8 +73,16 @@ export default jobsSlice.reducer;
 export const selectJobs = (state) => Object.values(state.jobs).reverse();
 export const selectJobCount = (state) => Object.values(state.jobs).filter(job => job.status !== "wishlist").length;
 export const selectFilteredJobs = (state) => {
-  let allJobs = Object.values(state.jobs).reverse()
-  let filters = state.filter; 
+  let allJobs = Object.values(state.jobs);
+  let filters = state.filter;
   let searchTerm = state.search;
-  return allJobs.filter(job => filters[job.status] && job.company.toLowerCase().includes(searchTerm.toLowerCase()));
-  }
+  allJobs = allJobs.filter(
+    (job) =>
+      filters[job.status] &&
+      job.company.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  allJobs.sort((a, b) => {
+    return new Date(b.last_modified) - new Date(a.last_modified);
+  });
+  return allJobs;
+};

@@ -27,6 +27,10 @@
     width: 200px;
 }
 
+.jobsList li:hover {
+    background-color: white;
+}
+
 .jobIndexItemEdit:hover {
     cursor: pointer;
     /* background-color: white; */
