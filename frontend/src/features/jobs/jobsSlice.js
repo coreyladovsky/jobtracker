@@ -6,27 +6,40 @@ const API = apiURL();
 
 const normalize = (arr) => {
   return arr.reduce((acc, el) => {
-    acc[el.id] = el;
+    acc[el.id] = { ...acc[el.id], ...el };
     return acc;
   }, {});
 };
 
 export const createJob = (job, token) => async (dispatch) => {
-    try {
-       const res = await axios({
-         method: "post",
-         url: `${API}/api/jobs`,
-         headers: {
-           AuthToken: token,
-         },
-         data: job
-       });
+  try {
+    const res = await axios({
+      method: "post",
+      url: `${API}/api/jobs`,
+      headers: {
+        AuthToken: token,
+      },
+      data: job,
+    });
 
-       dispatch(receiveJob(res.data.job));    
-    } catch (err) {
-        
-    }
-}
+    dispatch(receiveJob(res.data.job));
+  } catch (err) {}
+};
+
+export const fetchAllJobStatusTimelines = (token, id) => async (dispatch) => {
+  try {
+    const res = await axios({
+      method: "get",
+      url: `${API}/api/jobs_status_timelines/${id}`,
+      headers: {
+        AuthToken: token,
+      },
+    });
+    dispatch(receiveJobStatusTimelines(res.data));
+  } catch (err) {
+    throw Error(err.message);
+  }
+};
 
 export const fetchAllJobs = (token) => async (dispatch) => {
   try {
@@ -38,7 +51,7 @@ export const fetchAllJobs = (token) => async (dispatch) => {
       },
     });
 
-    dispatch(receiveJobs(normalize(res.data.jobs)));
+    dispatch(receiveJobs(res.data.jobs));
   } catch (err) {
     throw Error(err.message);
   }
@@ -54,7 +67,7 @@ export const updateJob = (job, token) => async (dispatch) => {
       },
       data: job,
     });
-    dispatch(receiveJob(res.data.job))
+    dispatch(receiveJob(res.data.job));
   } catch (err) {}
 };
 
@@ -62,16 +75,34 @@ export const jobsSlice = createSlice({
   name: "jobs",
   initialState: {},
   reducers: {
-    receiveJobs: (state, { payload }) =>  payload,
-    receiveJob: (state, {payload}) => {state[payload.id] = payload },
+    receiveJobs: (state, { payload }) => {
+      payload.forEach((el) => {
+        state[el.id] = { ...state[el.id], ...el };
+      });
+    },
+    receiveJob: (state, { payload }) => {
+      state[payload.id] = { ...state[payload.id], ...payload };
+    },
+    receiveJobStatusTimelines: (state, { payload }) => {
+      let job_id = payload.job_id;
+      let job = state[job_id] || {};
+      job.timelines = payload.timelines;
+      state[job_id] = { ...state[job_id], timelines: payload.timelines };
+    },
   },
 });
 
-export const { receiveJobs, receiveJob } = jobsSlice.actions;
+export const {
+  receiveJobs,
+  receiveJob,
+  receiveJobStatusTimelines,
+} = jobsSlice.actions;
 export default jobsSlice.reducer;
 
 export const selectJobs = (state) => Object.values(state.jobs).reverse();
-export const selectJobCount = (state) => Object.values(state.jobs).filter(job => job.status !== "wishlist").length;
+export const selectJobCount = (state) =>
+  Object.values(state.jobs).filter((job) => job.status !== "wishlist").length;
+
 export const selectFilteredJobs = (state) => {
   let allJobs = Object.values(state.jobs);
   let filters = state.filter;

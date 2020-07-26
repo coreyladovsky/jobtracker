@@ -1,0 +1,29 @@
+.jobShowContainer:hover {
+    cursor: pointer;
+}
+
+.jobShowContainer button {
+   float: right; 
+   z-index: 5;
+}
+
+.jobShowContainer button:hover {
+    cursor: pointer;
+}
+
+.jobShowContainer ul {
+    display: flex; 
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.jobShowContainer li {
+  border: 1px solid black;
+  width: min-content;
+  min-width: 150px;
+  padding: 10px;
+  text-align: center;
+  border-radius: 7px;
+  margin: 10px;
+}
+
