@@ -12,9 +12,6 @@ function App() {
     <div className="App">
       <ErrorBoundaries>
         <Switch>
-          <ProtectedRoute path="/">
-            <Home />
-          </ProtectedRoute>
           <AuthRoute path="/signup">
             <SignUp />
           </AuthRoute>
@@ -24,6 +21,9 @@ function App() {
           <Route path="/forgot-password">
             <ForgotPassword />
           </Route>
+          <ProtectedRoute path="/">
+            <Home />
+          </ProtectedRoute>
         </Switch>
       </ErrorBoundaries>
     </div>
