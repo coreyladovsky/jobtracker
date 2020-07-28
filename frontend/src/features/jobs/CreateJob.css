@@ -38,3 +38,7 @@
 .createJobButton:hover {
     cursor: pointer;
 }
+
+.sun-editor .se-wrapper .se-wrapper-inner {
+  min-height: 200px;
+}
