@@ -12,7 +12,7 @@ export default () => {
 
    const logoutUser = () => {
      logout();
-     dispatch(receiveJobs({}));
+     dispatch(receiveJobs([]));
    };
 
   return (
