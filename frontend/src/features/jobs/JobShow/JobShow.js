@@ -1,8 +1,7 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAllJobStatusTimelines } from "../jobsSlice";
-import { AuthContext } from "../../../providers/AuthProvider";
 import { ArcherContainer, ArcherElement } from "react-archer";
 
 import "./JobShow.css";
@@ -13,11 +12,9 @@ export default () => {
   const dispatch = useDispatch();
   const job = useSelector((state) => state.jobs[id]);
 
-  const { token } = useContext(AuthContext);
-
   useEffect(() => {
-    dispatch(fetchAllJobStatusTimelines(token, id));
-  }, [token, id, dispatch]);
+    dispatch(fetchAllJobStatusTimelines(id));
+  }, [id, dispatch]);
 
   const hideSelf = () => history.push("/");
 
@@ -59,8 +56,8 @@ export default () => {
               ];
             }
             return (
-              <ArcherElement id={"element" + i} relations={relations}>
-                <li key={time.created_at}>
+              <ArcherElement id={"element" + i} key={time.created_at} relations={relations}>
+                <li >
                   <div>{formatStatus(time.status)}</div>
                   <div>Date: {formatDate(time.created_at)}</div>
                 </li>

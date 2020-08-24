@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext } from "react";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
 
@@ -50,7 +50,7 @@ export default ({ handleClose }) => {
   );
 
   const [status, setStatus] = useState((job && job.status) || "applied");
-  const { currentUser, token } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
@@ -69,8 +69,7 @@ export default ({ handleClose }) => {
             status,
             user_id: currentUser.uid,
             id: job.id,
-          },
-          token
+          }
         )
       );
     } else {
@@ -86,8 +85,7 @@ export default ({ handleClose }) => {
             description,
             status,
             user_id: currentUser.uid,
-          },
-          token
+          }
         )
       );
     }
