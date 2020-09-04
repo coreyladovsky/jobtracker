@@ -10,10 +10,9 @@ export const getNewFirebaseIdToken = () => async (dispatch) => {
   }
 };
 
-
 const authSlice = createSlice({
   name: "auth",
-  initialState: { currentUser: null },
+  initialState: { currentUser: null, token: null },
   reducers: {
     updateCurrentUser: (state, { payload }) => {
       state.currentUser = payload;
@@ -21,8 +20,9 @@ const authSlice = createSlice({
     updateToken: (state, { payload }) => {
       state.token = payload;
     },
+    logoutUser: (_, { payload }) => ({ currentUser: null, token: null }),
   },
 });
 
-export const { updateCurrentUser, updateToken } = authSlice.actions;
+export const { updateCurrentUser, updateToken, logoutUser } = authSlice.actions;
 export default authSlice.reducer;

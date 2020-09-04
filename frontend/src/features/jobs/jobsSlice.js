@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { apiURL } from "../../util/apiURL";
 import { getNewFirebaseIdToken } from "../auth/authSlice";
+import { logoutUser } from "../auth/authSlice";
 
 const API = apiURL();
 
@@ -80,6 +81,9 @@ export const updateJob = (job) => async (dispatch, getState) => {
       data: job,
     });
     dispatch(receiveJob(res.data.job));
+    if (res.data.timeline) {
+      dispatch(receiveJobStatusTimeline(res.data.timeline));
+    }
   } catch (err) {}
 };
 
@@ -89,7 +93,18 @@ export const jobsSlice = createSlice({
   reducers: {
     receiveJobs: (state, { payload }) => {
       payload.forEach((el) => {
+        state[el.id] = state[el.id] || {};
+
+        state[el.id].timelines = state[el.id].timelines || [];
+
+        state[el.id].timelines.push({
+          status: el.timeline_status,
+          created_at: el.timeline_created_at,
+        });
         state[el.id] = { ...state[el.id], ...el };
+
+        delete state[el.id].timeline_status;
+        delete state[el.id].timeline_created_at;
       });
     },
     receiveJob: (state, { payload }) => {
@@ -101,6 +116,17 @@ export const jobsSlice = createSlice({
       job.timelines = payload.timelines;
       state[job_id] = { ...state[job_id], timelines: payload.timelines };
     },
+    receiveJobStatusTimeline: (state, { payload }) => {
+      let job_id = payload.job_id;
+      let job = state[job_id];
+      job.timelines.push(payload);
+      state[job_id] = job;
+    },
+  },
+  extraReducers: {
+    [logoutUser]() {
+      return {};
+    },
   },
 });
 
@@ -108,6 +134,7 @@ export const {
   receiveJobs,
   receiveJob,
   receiveJobStatusTimelines,
+  receiveJobStatusTimeline,
 } = jobsSlice.actions;
 export default jobsSlice.reducer;
 

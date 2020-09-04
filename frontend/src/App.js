@@ -6,6 +6,7 @@ import ForgotPassword from "./features/auth/ForgotPassword";
 import { ProtectedRoute, AuthRoute } from "./util/authRoutes";
 import Login from "./features/auth/Login";
 import ErrorBoundaries from "./features/ErrorBoundaries/ErrorBoundaries";
+import JobStats from './features/jobs/Stats/JobStats'
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
           <Route path="/forgot-password">
             <ForgotPassword />
           </Route>
+          <ProtectedRoute path="/stats/jobtracker">
+            <JobStats />
+          </ProtectedRoute>
           <ProtectedRoute path="/">
             <Home />
           </ProtectedRoute>

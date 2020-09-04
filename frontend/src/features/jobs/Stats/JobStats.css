@@ -1,3 +1,23 @@
+
+.statsContainer {
+    background-color: white;
+    min-width: 50%;
+    max-width: 80%;
+    min-height: 50%;
+    border-radius: 15px;
+    margin: auto;
+    margin-top: 70px;
+    font-family: sans-serif;
+}
+
+.statsContainer h1 {
+    font-weight: bold;
+    font-size: 35px;
+    padding: 20px;
+    text-align: center;
+}
+
+
 .statsDisplay {
     display: grid;
     margin: auto;

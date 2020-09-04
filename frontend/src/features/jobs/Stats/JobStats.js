@@ -79,7 +79,7 @@ export default () => {
     setActiveWishList(wishlist);
   };
   return (
-    <div className="adminContainer">
+    <div className="statsContainer">
       <h1>Stats Page</h1>
       <div className="statsDisplay">
         <div className="statItem">
