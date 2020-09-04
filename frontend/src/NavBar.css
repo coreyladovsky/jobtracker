@@ -21,8 +21,16 @@ nav {
 
 }
 
+
 .jobCount {
-    color: white;
     font-family: sans-serif;
-    font-size: 18px;
+    color: white;
+    font-size: 14px;
+}
+
+#statsPageLink {
+  text-decoration: underline;
+  font-size: 13px; 
+  font-weight: normal;
+  color: white;
 }

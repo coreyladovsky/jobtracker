@@ -5,6 +5,7 @@ import "./NavBar.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setJobFormShow } from "./features/modal/modalSlice";
 import { selectJobCount, receiveJobs} from "./features/jobs/jobsSlice";
+import { Link } from 'react-router-dom'
 
 export default () => {
   const dispatch = useDispatch()
@@ -24,7 +25,12 @@ export default () => {
         + Add
       </button>
       <Search />
-      <div className="jobCount">You've applied to {jobCount} jobs!</div>
+      <div className="jobCount">
+        <p>You've applied to {jobCount} jobs!</p>
+        <Link id="statsPageLink" to={"/stats/jobtracker"}>
+          See All Stats
+        </Link>
+      </div>
       <button onClick={logoutUser} className={"button"}>
         Log out
       </button>
