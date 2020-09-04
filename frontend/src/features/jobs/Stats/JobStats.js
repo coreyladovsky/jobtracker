@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectJobs, fetchAllJobs } from "../jobsSlice";
 import "./JobStats.css";
-
+import { useHistory } from 'react-router-dom'
 export default () => {
   const dispatch = useDispatch();
   const jobs = useSelector(selectJobs);
@@ -23,6 +23,8 @@ export default () => {
     calculateStats();
     calcCurrentStatus();
   }, [jobs.length]);
+
+  const history = useHistory();
 
   const calculateStats = () => {
     let totalAppsThisWeek = 0;
@@ -80,6 +82,7 @@ export default () => {
   };
   return (
     <div className="statsContainer">
+        <button onClick ={() => history.push("/")} className={"backButton"}>Back</button>
       <h1>Stats Page</h1>
       <div className="statsDisplay">
         <div className="statItem">
